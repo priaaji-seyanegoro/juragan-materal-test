@@ -1,5 +1,6 @@
 <template>
   <q-page>
+    <br /><br /><br />
     <carousel-component />
 
     <!-- @submit.prevent="onSubmit" -->
@@ -73,7 +74,7 @@
         />
       </div>
     </q-form>
-
+    <br /><br /><br />
     <drawer-form-component
       :titleDrawer="pickTitle"
       :isUseIcon="useIcon"

@@ -75,7 +75,7 @@
       <q-footer class="bg-white text-center q-pa-md q-mt-lg" bordered>
         <div class="row justify-content-between">
           <div class="col">
-            <q-btn flat text-color="grey-8" icon="filter_alt" label="" />
+            <q-btn flat text-color="grey-8" icon="filter_alt" label="Filter" />
           </div>
           <div class="col">
             <q-btn flat text-color="grey-8" icon="tune" label="Sort" />
