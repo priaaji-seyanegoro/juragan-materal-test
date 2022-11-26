@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <br /><br /><br />
+    <br />
     <carousel-component />
 
     <!-- @submit.prevent="onSubmit" -->
