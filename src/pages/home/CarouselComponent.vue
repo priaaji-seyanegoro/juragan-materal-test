@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page style="min-height: 0">
     <div>
       <div class="q-pa-xl">
         <q-carousel
@@ -11,6 +11,7 @@
           transition-next="slide-left"
           swipeable
           infinite
+          :height="`${$q.screen.lt.sm ? '150px' : ''}`"
           style="background-color: #fafafa"
           :autoplay="2500"
         >

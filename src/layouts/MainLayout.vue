@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf" style="background-color: #fafafa">
-    <q-header class="bg-white q-px-md">
+    <q-header class="bg-white q-pa-md">
       <q-toolbar>
         <q-toolbar-title class="text-black fontsize-10 text-weight-bold">
           REAL ESTATE FINDER

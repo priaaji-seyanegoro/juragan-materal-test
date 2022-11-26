@@ -17,7 +17,7 @@
           label="Pick Location"
           dense
           @click="
-            open(
+            openFormDrawer(
               'bottom',
               listLocations,
               true,
@@ -36,7 +36,13 @@
           label="Type Of Property"
           dense
           @click="
-            open('bottom', listTypeProperty, false, 'Type Of Property', 'type')
+            openFormDrawer(
+              'bottom',
+              listTypeProperty,
+              false,
+              'Type Of Property',
+              'type'
+            )
           "
         >
           <template v-slot:prepend>
@@ -48,24 +54,35 @@
           bottom-slots
           label="Status"
           dense
-          @click="open('bottom', listStatus, false, 'Status', 'status')"
+          @click="
+            openFormDrawer('bottom', listStatus, false, 'Status', 'status')
+          "
         >
           <template v-slot:prepend>
             <q-icon name="done" />
           </template>
         </q-input>
 
-        <q-btn class="full-width" rounded color="grey-9" label="Find" />
+        <q-btn
+          class="full-width"
+          :disable="isDisableSearch"
+          rounded
+          color="grey-9"
+          label="Find"
+          @click="openListDrawer('bottom')"
+        />
       </div>
     </q-form>
 
-    <drawer-component
+    <drawer-form-component
       :titleDrawer="pickTitle"
       :isUseIcon="useIcon"
       :datas="dataDrawer"
       :typeDrawer="type"
-      ref="drawerAction"
+      ref="drawerForm"
     />
+
+    <drawer-list-component ref="drawerList" />
   </q-page>
 </template>
 
@@ -78,15 +95,19 @@ export default {
     CarouselComponent: defineAsyncComponent(() =>
       import("./CarouselComponent.vue")
     ),
-    DrawerComponent: defineAsyncComponent(() =>
-      import("./DrawerComponent.vue")
+    DrawerFormComponent: defineAsyncComponent(() =>
+      import("./DrawerFormComponent.vue")
+    ),
+    DrawerListComponent: defineAsyncComponent(() =>
+      import("./DrawerListComponent.vue")
     ),
   },
   setup() {
     const store = useStore();
     const dialog = ref(false);
     const position = ref("top");
-    const drawerAction = ref("");
+    const drawerForm = ref("");
+    const drawerList = ref("");
     const dataDrawer = ref([]);
     const useIcon = ref(false);
     const listLocations = [
@@ -115,6 +136,9 @@ export default {
     const pickTitle = ref("");
     const location = ref("");
     const getForm = computed(() => store.getters["realEstate/getForm"]);
+    const isDisableSearch = computed(
+      () => store.getters["realEstate/isDisableSearch"]
+    );
 
     const listTypeProperty = [
       {
@@ -136,20 +160,25 @@ export default {
         label: "Buy",
       },
     ];
-    const open = (pos, datas, icon, titleDrawer, typeDrawer) => {
+    const openFormDrawer = (pos, datas, icon, titleDrawer, typeDrawer) => {
       pickTitle.value = titleDrawer;
       type.value = typeDrawer;
       dataDrawer.value = datas;
       useIcon.value = icon;
-      drawerAction.value.open(pos);
+      drawerForm.value.open(pos);
+    };
+
+    const openListDrawer = (pos) => {
+      drawerList.value.open(pos);
     };
 
     return {
       dialog,
       position,
-      open,
+      openFormDrawer,
+      drawerList,
       listLocations,
-      drawerAction,
+      drawerForm,
       dataDrawer,
       listTypeProperty,
       listStatus,
@@ -158,6 +187,8 @@ export default {
       pickTitle,
       getForm,
       location,
+      openListDrawer,
+      isDisableSearch,
     };
   },
 };
